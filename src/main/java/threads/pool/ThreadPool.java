@@ -1,19 +1,23 @@
 package threads.pool;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ThreadPool {
-    private ThreadPool threadPoolInstance;
-    private List<Thread> threads;
+public final class ThreadPool {
+    private static ThreadPool threadPoolInstance;
+    private List<Thread> threads = new ArrayList<>();
 
-    public ThreadPool getThreadPoolInstance() {
-        if (this.threadPoolInstance == null) {
-            this.threadPoolInstance = new ThreadPool();
+    public static ThreadPool getThreadPoolInstance() {
+        if (threadPoolInstance == null) {
+            threadPoolInstance = new ThreadPool();
         }
-        return this.threadPoolInstance;
+        return threadPoolInstance;
     }
 
-    public List<Thread> getThreads() {
-        return this.threads;
+    public int getThreadsPoolSize() {
+        return this.threads.size();
+    }
+    public void addThreadToPool(Thread t) {
+        this.threads.add(t);
     }
 }
