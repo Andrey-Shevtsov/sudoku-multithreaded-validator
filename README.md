@@ -176,7 +176,7 @@ for make this variable visible to all threads.
 But here comes another problems. As *results* list became shared between all 
 threads, some of them may modify it at once. That may lead to **Thread 
 interference** or **Memory Consistency Errors**. To protect form that we can
-give access to the shred data via **Synchronized methods**.
+give access to the shared data via **Synchronized methods**.
 ```java:
     public synchronized void checkRow() {
         // validate the row and modify results value inside this method
