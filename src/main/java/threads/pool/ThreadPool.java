@@ -20,4 +20,21 @@ public final class ThreadPool {
     public void addThreadToPool(Thread t) {
         this.threads.add(t);
     }
+
+    public Object executeThread(int id) {
+        threads.get(id).start();
+        return threads.get(id);
+    }
+
+    public void executeAllThreads() {
+        threads.forEach(Thread::start);
+    }
+
+    public void joinThread(int id) throws InterruptedException {
+        threads.get(id).join();
+    }
+
+    public void deleteThread(int id) {
+        threads.remove(id);
+    }
 }

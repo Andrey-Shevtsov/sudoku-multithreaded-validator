@@ -1,11 +1,12 @@
 package validators;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class RowValidator implements Runnable{
 
     private int[] row;
-    private volatile int result;
+    private List<Integer> result; // refers to the list of results in Solution class
 
     public void setRow(int[] row) {
         this.row = row;
@@ -15,27 +16,32 @@ public class RowValidator implements Runnable{
         return row;
     }
 
-    public int getResult() {
-        return result;
+    public RowValidator(int[] row, List<Integer> result) {
+        this.row = row;
+        this.result = result;
     }
 
     public void sort() {
-        for (int j = 0; j < row.length; j++) {
-            int key = row[j];
-            int i = j - 1;
-            while (i > 0 && row[i] > key) {
-                row[i + 1] = row[i];
-                i--;
+        for (int i = 1; i < row.length; i++) {
+            int key = row[i];
+            int j = i - 1;
+            while (j >= 0 && row[j] > key) {
+                row[j + 1] = row[j];
+                j = j - 1;
             }
-            row[i + 1] = key;
+            row[j + 1] = key;
         }
+    }
+
+    public synchronized void checkRow() {
+        sort();
+        if (Arrays.toString(row).equals("[1, 2, 3, 4, 5, 6, 7, 8, 9]")) {
+            this.result.add(1);
+        } else this.result.add(0);
     }
 
     @Override
     public void run() {
-        sort();
-        if (Arrays.toString(row).equals("123456789")) {
-            this.result = 1;
-        } else this.result = 0;
+        checkRow();
     }
 }

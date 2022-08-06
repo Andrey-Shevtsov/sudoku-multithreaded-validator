@@ -1,16 +1,16 @@
 package threads.factory;
 
-public class ThreadFactory {
-    private ThreadFactory factoryInstance;
+public final class ThreadFactory {
+    private static ThreadFactory factoryInstance;
 
-    public ThreadFactory getInstance() {
-        if (this.factoryInstance == null) {
-            this.factoryInstance = new ThreadFactory();
+    public static ThreadFactory getInstance() {
+        if (factoryInstance == null) {
+            factoryInstance = new ThreadFactory();
         }
-        return this.factoryInstance;
+        return factoryInstance;
     }
 
-    private Thread createThread(Runnable obj) {
+    public Thread createThread(Runnable obj) {
         return new Thread(obj);
     }
 }
